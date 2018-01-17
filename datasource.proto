@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "models";
+option go_package = "datasource";
 
 package models;
 
