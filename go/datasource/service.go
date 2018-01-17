@@ -3,13 +3,12 @@ package datasource
 import (
 	"context"
 
-	models "github.com/grafana/grafana_plugin_model/go/models"
 	plugin "github.com/hashicorp/go-plugin"
 	"google.golang.org/grpc"
 )
 
 type DatasourcePlugin interface {
-	Query(ctx context.Context, req *models.DatasourceRequest) (*models.DatasourceResponse, error)
+	Query(ctx context.Context, req *DatasourceRequest) (*DatasourceResponse, error)
 }
 
 type DatasourcePluginImpl struct {
@@ -18,19 +17,19 @@ type DatasourcePluginImpl struct {
 }
 
 func (p *DatasourcePluginImpl) GRPCServer(s *grpc.Server) error {
-	models.RegisterDatasourcePluginServer(s, &GRPCServer{p.Plugin})
+	RegisterDatasourcePluginServer(s, &GRPCServer{p.Plugin})
 	return nil
 }
 
 func (p *DatasourcePluginImpl) GRPCClient(c *grpc.ClientConn) (interface{}, error) {
-	return &GRPCClient{models.NewDatasourcePluginClient(c)}, nil
+	return &GRPCClient{NewDatasourcePluginClient(c)}, nil
 }
 
 type GRPCClient struct {
-	models.DatasourcePluginClient
+	DatasourcePluginClient
 }
 
-func (m *GRPCClient) Query(ctx context.Context, req *models.DatasourceRequest) (*models.DatasourceResponse, error) {
+func (m *GRPCClient) Query(ctx context.Context, req *DatasourceRequest) (*DatasourceResponse, error) {
 	return m.DatasourcePluginClient.Query(ctx, req)
 }
 
@@ -38,6 +37,6 @@ type GRPCServer struct {
 	DatasourcePlugin
 }
 
-func (m *GRPCServer) Query(ctx context.Context, req *models.DatasourceRequest) (*models.DatasourceResponse, error) {
+func (m *GRPCServer) Query(ctx context.Context, req *DatasourceRequest) (*DatasourceResponse, error) {
 	return m.DatasourcePlugin.Query(ctx, req)
 }
