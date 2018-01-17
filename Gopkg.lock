@@ -14,10 +14,9 @@
   revision = "ca137eb4b4389c9bc6f1a6d887f056bf16c00510"
 
 [[projects]]
-  branch = "master"
   name = "github.com/hashicorp/go-plugin"
   packages = ["."]
-  revision = "e37881a3f1a07fce82b3d99ce0342a72e53386bc"
+  revision = "3e6d191694b5a3a2b99755f31b47fa209e4bcd09"
 
 [[projects]]
   branch = "master"
@@ -58,6 +57,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "73a4fe17f5ec8b08b5dd54953aeb29529b08d2d3466a1ec251cd321199c0f90f"
+  inputs-digest = "e779369e64c163fd0c1182f5eaca3a9ac0bb899fbf00abb1d921d2ac3a5c4320"
   solver-name = "gps-cdcl"
   solver-version = 1

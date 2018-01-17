@@ -1,3 +1,4 @@
+
 # Gopkg.toml example
 #
 # Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
@@ -25,8 +26,8 @@
   name = "github.com/golang/protobuf"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/hashicorp/go-plugin"
+  revision = "3e6d191694b5a3a2b99755f31b47fa209e4bcd09"
 
 [[constraint]]
   branch = "master"
