@@ -79,7 +79,7 @@ message DatasourceInfo {
   string type = 4;
   string url = 5;
   string jsonData = 6;
-  string secureJsonData = 7;
+  map<string,string> decryptedSecureJsonData = 7;
 }
 
 message TimeSeries {
