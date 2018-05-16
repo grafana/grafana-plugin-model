@@ -27,7 +27,7 @@
 
 [[constraint]]
   name = "github.com/hashicorp/go-plugin"
-  revision = "3e6d191694b5a3a2b99755f31b47fa209e4bcd09"
+  revision = "e8d22c780116115ae5624720c9af0c97afe4f551"
 
 [[constraint]]
   branch = "master"
@@ -35,4 +35,4 @@
 
 [[constraint]]
   name = "google.golang.org/grpc"
-  version = "1.9.1"
+  version = "1.11.1"
