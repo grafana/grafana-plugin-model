@@ -65,6 +65,7 @@ func setPayload(p *testpb.Payload, t testpb.PayloadType, size int) {
 	}
 	p.Type = t
 	p.Body = body
+	return
 }
 
 func newPayload(t testpb.PayloadType, size int) *testpb.Payload {

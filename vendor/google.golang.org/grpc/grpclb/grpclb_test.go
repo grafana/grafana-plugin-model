@@ -16,8 +16,8 @@
  *
  */
 
-//go:generate protoc --go_out=plugins=:$GOPATH/src grpc_lb_v1/messages/messages.proto
-//go:generate protoc --go_out=plugins=grpc:$GOPATH/src grpc_lb_v1/service/service.proto
+//go:generate protoc --go_out=plugins=:$GOPATH grpc_lb_v1/messages/messages.proto
+//go:generate protoc --go_out=plugins=grpc:$GOPATH grpc_lb_v1/service/service.proto
 
 // Package grpclb_test is currently used only for grpclb testing.
 package grpclb_test
@@ -49,6 +49,8 @@ import (
 	"google.golang.org/grpc/status"
 	testpb "google.golang.org/grpc/test/grpc_testing"
 	"google.golang.org/grpc/test/leakcheck"
+
+	_ "google.golang.org/grpc/grpclog/glogger"
 )
 
 var (
@@ -471,17 +473,9 @@ func TestDropRequest(t *testing.T) {
 		ServerName: lbServerName,
 	}})
 
-	// Wait for the 1st, non-fail-fast RPC to succeed. This ensures both server
-	// connections are made, because the first one has DropForLoadBalancing set
-	// to true.
-	var i int
-	for i = 0; i < 1000; i++ {
-		if _, err := testC.EmptyCall(context.Background(), &testpb.Empty{}, grpc.FailFast(false)); err == nil {
-			break
-		}
-		time.Sleep(time.Millisecond)
-	}
-	if i >= 1000 {
+	// The 1st, non-fail-fast RPC should succeed.  This ensures both server
+	// connections are made, because the first one has DropForLoadBalancing set to true.
+	if _, err := testC.EmptyCall(context.Background(), &testpb.Empty{}, grpc.FailFast(false)); err != nil {
 		t.Fatalf("%v.SayHello(_, _) = _, %v, want _, <nil>", testC, err)
 	}
 	for _, failfast := range []bool{true, false} {
@@ -845,7 +839,7 @@ func TestGRPCLBStatsUnaryFailedToSend(t *testing.T) {
 			t.Fatalf("%v.EmptyCall(_, _) = _, %v, want _, <nil>", testC, err)
 		}
 		for i := 0; i < countRPC-1; i++ {
-			cc.Invoke(context.Background(), failtosendURI, &testpb.Empty{}, nil)
+			grpc.Invoke(context.Background(), failtosendURI, &testpb.Empty{}, nil, cc)
 		}
 	})
 
@@ -966,7 +960,7 @@ func TestGRPCLBStatsStreamingFailedToSend(t *testing.T) {
 			}
 		}
 		for i := 0; i < countRPC-1; i++ {
-			cc.NewStream(context.Background(), &grpc.StreamDesc{}, failtosendURI)
+			grpc.NewClientStream(context.Background(), &grpc.StreamDesc{}, cc, failtosendURI)
 		}
 	})
 

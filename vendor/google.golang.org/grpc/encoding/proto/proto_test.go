@@ -40,7 +40,7 @@ func marshalAndUnmarshal(t *testing.T, codec encoding.Codec, expectedBody []byte
 		t.Errorf("codec.Unmarshal(_) returned an error")
 	}
 
-	if !bytes.Equal(p.GetBody(), expectedBody) {
+	if bytes.Compare(p.GetBody(), expectedBody) != 0 {
 		t.Errorf("Unexpected body; got %v; want %v", p.GetBody(), expectedBody)
 	}
 }
