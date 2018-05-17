@@ -10,10 +10,11 @@ message RenderRequest {
   int32 timeout = 4;
   string timezone = 5;
   string encoding = 6;
+  string filePath = 7;
 }
 
 message RenderResponse {
-  bytes content = 1;
+  string error = 1;
 }
 
 service Renderer {
