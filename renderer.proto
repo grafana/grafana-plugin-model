@@ -11,6 +11,8 @@ message RenderRequest {
   string timezone = 5;
   string encoding = 6;
   string filePath = 7;
+  string renderKey = 8;
+  bool debug = 9;
 }
 
 message RenderResponse {
