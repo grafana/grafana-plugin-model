@@ -12,7 +12,8 @@ message RenderRequest {
   string encoding = 6;
   string filePath = 7;
   string renderKey = 8;
-  bool debug = 9;
+  string domain = 9;
+  bool debug = 10;
 }
 
 message RenderResponse {
