@@ -1,0 +1,235 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "datasource.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "RowValueKind": {
+      "type": "string",
+      "enum": [
+        "TYPE_NULL",
+        "TYPE_DOUBLE",
+        "TYPE_INT64",
+        "TYPE_BOOL",
+        "TYPE_STRING",
+        "TYPE_BYTES"
+      ],
+      "default": "TYPE_NULL",
+      "description": " - TYPE_NULL: Field type null.\n - TYPE_DOUBLE: Field type double.\n - TYPE_INT64: Field type int64.\n - TYPE_BOOL: Field type bool.\n - TYPE_STRING: Field type string.\n - TYPE_BYTES: Field type bytes."
+    },
+    "modelsDatasourceInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "orgId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "jsonData": {
+          "type": "string"
+        },
+        "decryptedSecureJsonData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "modelsDatasourceResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsQueryResult"
+          }
+        }
+      }
+    },
+    "modelsPoint": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "modelsQuery": {
+      "type": "object",
+      "properties": {
+        "refId": {
+          "type": "string"
+        },
+        "maxDataPoints": {
+          "type": "string",
+          "format": "int64"
+        },
+        "intervalMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "modelJson": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsQueryResult": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "refId": {
+          "type": "string"
+        },
+        "metaJson": {
+          "type": "string"
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsTimeSeries"
+          }
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsTable"
+          }
+        }
+      }
+    },
+    "modelsRowValue": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/RowValueKind"
+        },
+        "doubleValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "int64Value": {
+          "type": "string",
+          "format": "int64"
+        },
+        "boolValue": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "bytesValue": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "modelsTable": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsTableColumn"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsTableRow"
+          }
+        }
+      }
+    },
+    "modelsTableColumn": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsTableRow": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsRowValue"
+          }
+        }
+      }
+    },
+    "modelsTimeRange": {
+      "type": "object",
+      "properties": {
+        "fromRaw": {
+          "type": "string"
+        },
+        "toRaw": {
+          "type": "string"
+        },
+        "fromEpochMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "toEpochMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "modelsTimeSeries": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelsPoint"
+          }
+        }
+      }
+    }
+  }
+}
