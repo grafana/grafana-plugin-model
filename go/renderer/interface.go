@@ -3,7 +3,7 @@ package renderer
 import (
 	"context"
 
-	plugin "github.com/hashicorp/go-plugin"
+	"github.com/hashicorp/go-plugin"
 	"google.golang.org/grpc"
 )
 
@@ -23,20 +23,4 @@ func (p *RendererPluginImpl) GRPCServer(broker *plugin.GRPCBroker, s *grpc.Serve
 
 func (p *RendererPluginImpl) GRPCClient(ctx context.Context, broker *plugin.GRPCBroker, c *grpc.ClientConn) (interface{}, error) {
 	return &GRPCClient{NewRendererClient(c)}, nil
-}
-
-type GRPCClient struct {
-	RendererClient
-}
-
-func (m *GRPCClient) Render(ctx context.Context, req *RenderRequest) (*RenderResponse, error) {
-	return m.RendererClient.Render(ctx, req)
-}
-
-type GRPCServer struct {
-	RendererPlugin
-}
-
-func (m *GRPCServer) Render(ctx context.Context, req *RenderRequest) (*RenderResponse, error) {
-	return m.RendererPlugin.Render(ctx, req)
 }
