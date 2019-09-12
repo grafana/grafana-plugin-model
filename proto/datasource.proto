@@ -102,6 +102,7 @@ message QueryDatasourceRequest {
   TimeRange timeRange = 1;
   int64 datasourceId = 2;
   repeated Query queries = 3;
+  int64 orgId = 4;
 }
 
 message QueryDatasourceResponse {
