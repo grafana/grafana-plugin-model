@@ -14,7 +14,7 @@ sudo chown -R root /usr/local/include/google
 
 ```bash
 go get -d -u github.com/golang/protobuf/protoc-gen-go
-cd $GOPATH/src/github.com/google/protobuf
+cd $GOPATH/src/github.com/google/protobuf/protoc-gen-go
 git checkout 927b65914520a8b7d44f5c9057611cfec6b2e2d0
 go install github.com/golang/protobuf/protoc-gen-go
 ```
